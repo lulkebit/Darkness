@@ -6,6 +6,7 @@
 #include <intrin.h>
 #include <stdexcept>
 #include "../hacks/misc.h"
+#include "../hacks/aimbot.h"
 
 #include "../../ext/imgui/imgui.h"
 #include "../../ext/imgui/imgui_impl_dx9.h"
@@ -73,10 +74,10 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	// make sure this function is being called from CInput::CreateMove
 	if (!cmd->commandNumber)
 		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
-
-	// this would be done anyway by returning true
-	if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
-		interfaces::engine->SetViewAngles(cmd->viewAngles);
+	if (hacks::pSilent)
+		// this would be done anyway by returning true
+		if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
+			interfaces::engine->SetViewAngles(cmd->viewAngles);
 
 	// get our local player here
 	globals::UpdateLocalPlayer();
@@ -85,7 +86,15 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	{
 		// example bhop
 		hacks::RunBunnyHop(cmd);
+
+		// run aimbot
+		hacks::RunAimbot(cmd);
 	}
+
+	if (!hacks::pSilent)
+		// this would be done anyway by returning true
+		if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
+			interfaces::engine->SetViewAngles(cmd->viewAngles);
 
 	return false;
 }

@@ -17,7 +17,6 @@
 #include "../valve/ivmodelinfo.h"
 #include "../valve/ivpanel.h"
 
-// learn more about interfaces -> https://www.youtube.com/watch?v=C0wGdwnaArA
 namespace interfaces
 {
 	// call once to capture all interface pointers

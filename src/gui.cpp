@@ -7,6 +7,9 @@
 #include <stdexcept>
 #include <vector>
 #include "../ext/imgui/imgui_internal.h"
+#include "hacks/misc.h"
+#include "core/interfaces.h"
+#include "hacks/aimbot.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(
 	HWND window,
@@ -226,7 +229,8 @@ void gui::Render() noexcept
 	static std::vector<tab_data> tabs = {
 		{ "Legitbot" },
 		{ "Visuals" },
-		{ "Misc" }
+		{ "Misc" },
+		{ "Config" }
 	};
 
 	static int tab = 0;
@@ -235,12 +239,12 @@ void gui::Render() noexcept
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGui::SetNextWindowPos({ 100, 100 });
 	ImGui::SetNextWindowSize({ 800, 500 });
 	ImGui::Begin("Darkness", 
 		&open,
 		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoCollapse);
+		ImGuiWindowFlags_NoCollapse
+		);
 	ImGui::PushStyleColor(ImGuiCol_Border, ImColor(0, 0, 0, 255).Value);
 	ImGui::BeginChild("##LeftSide", ImVec2(120, ImGui::GetContentRegionAvail().y), true);
 	{
@@ -267,7 +271,12 @@ void gui::Render() noexcept
 		auto& data = tabs[tab];
 		if (data.name == "Legitbot")
 		{
-
+			ImGui::Checkbox("Aimbot", &hacks::aimbotToggle);
+			if (hacks::aimbotToggle)
+			{
+				ImGui::SliderFloat("FOV", &hacks::fov, 0.1f, 180.0f);
+				ImGui::SliderFloat("Smoothing", &hacks::smoothing, 0.1f, 1.0f);
+			}
 		}
 		else if (data.name == "Visuals")
 		{
@@ -275,7 +284,11 @@ void gui::Render() noexcept
 		}
 		else if (data.name == "Misc")
 		{
-
+			ImGui::Checkbox("Bhop", &hacks::bhopToggle);
+		}
+		else if (data.name == "Config")
+		{
+			
 		}
 	}
 	ImGui::EndChild();
@@ -294,9 +307,16 @@ LRESULT CALLBACK WindowProcess(
 	LPARAM longParameter
 )
 {
+	ImGuiIO& io = ::ImGui::GetIO();
+
 	// toggle menu
 	if (GetAsyncKeyState(VK_INSERT) & 1)
 		gui::open = !gui::open;
+
+	//if (gui::open)
+		//SetCursor(io.MouseDrawCursor ? NULL : LoadCursor(NULL, IDC_ARROW));
+	//else
+		//SetCursor(NULL);
 
 	// pass messages to imgui
 	if (gui::open && ImGui_ImplWin32_WndProcHandler(
