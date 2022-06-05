@@ -11,6 +11,7 @@
 #include "../../ext/imgui/imgui.h"
 #include "../../ext/imgui/imgui_impl_dx9.h"
 #include "../../ext/imgui/imgui_impl_win32.h"
+#include "../config/config.hpp"
 
 void hooks::Setup() noexcept
 {
@@ -74,7 +75,7 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	// make sure this function is being called from CInput::CreateMove
 	if (!cmd->commandNumber)
 		return CreateMoveOriginal(interfaces::clientMode, frameTime, cmd);
-	if (hacks::pSilent)
+	if (config_system.item.pSilent)
 		// this would be done anyway by returning true
 		if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
 			interfaces::engine->SetViewAngles(cmd->viewAngles);
@@ -89,9 +90,11 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 
 		// run aimbot
 		hacks::RunAimbot(cmd);
+
+		hacks::Runalwayonaimbot(cmd);
 	}
 
-	if (!hacks::pSilent)
+	if (!config_system.item.pSilent)
 		// this would be done anyway by returning true
 		if (CreateMoveOriginal(interfaces::clientMode, frameTime, cmd))
 			interfaces::engine->SetViewAngles(cmd->viewAngles);

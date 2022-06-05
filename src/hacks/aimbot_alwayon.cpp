@@ -1,23 +1,19 @@
 #include "aimbot.h"
 #include "../core/globals.h"
 #include "../core/interfaces.h"
-#include "../config/config.hpp"
 
-void hacks::RunAimbot(CUserCmd* cmd) noexcept
+void hacks::Runalwayonaimbot(CUserCmd* cmd) noexcept
 {
-	if (config_system.item.bAimbot)
+	if (hacks::alway_on)
 	{
-		// check if we are trying to shoot
-		if (!(cmd->buttons & CUserCmd::IN_ATTACK))
-			return;
 
 		if (globals::localPlayer->IsDefusing())
-		return;
+			return;
 
 		CEntity* activeWeapon = globals::localPlayer->GetActiveWeapon();
 
 		if (!activeWeapon)
-		return;
+			return;
 
 		const int weaponType = activeWeapon->GetWeaponType();
 
@@ -46,7 +42,7 @@ void hacks::RunAimbot(CUserCmd* cmd) noexcept
 		}
 
 		CVector bestAngle{ };
-		float bestFov{ config_system.item.fFov };
+		float bestFov{ hacks::fov };
 
 		for (int i = 1; i <= interfaces::globals->maxClients; i++)
 		{
@@ -107,26 +103,6 @@ void hacks::RunAimbot(CUserCmd* cmd) noexcept
 			}
 		}
 
-		cmd->viewAngles = cmd->viewAngles + bestAngle.Scale(config_system.item.fSmooth);
+		cmd->viewAngles = cmd->viewAngles + bestAngle.Scale(hacks::smoothing);
 	}
-}
-
-void hacks::autoshot(CUserCmd* cmd) noexcept
-{
-
-	while (auto_shot) 
-	{
-		if (hacks::aimbotToggle && hacks::alway_on) 
-		{
-		continue;
-		}
-
-
-
-
-
-
-	}
-	
-	
 }

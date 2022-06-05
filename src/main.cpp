@@ -5,6 +5,7 @@
 // expose our cheat to main.cpp
 #include "core/hooks.h"
 #include "gui.h"
+#include "config/config.hpp"
 
 // setup our cheat & unload it when exit key is pressed
 DWORD WINAPI Setup(LPVOID lpParam)
@@ -14,6 +15,7 @@ DWORD WINAPI Setup(LPVOID lpParam)
 	netvars::Setup();		// dump latest offsets
 	gui::Setup();			// setup
 	hooks::Setup();			// place hooks
+	config_system.run("darkness");
 	
 
 	// sleep our thread until unload key is pressed

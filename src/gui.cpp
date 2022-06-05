@@ -10,6 +10,10 @@
 #include "hacks/misc.h"
 #include "core/interfaces.h"
 #include "hacks/aimbot.h"
+#include "config/config.hpp"
+
+bool save_config = false;
+bool load_config = false;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(
 	HWND window,
@@ -271,11 +275,14 @@ void gui::Render() noexcept
 		auto& data = tabs[tab];
 		if (data.name == "Legitbot")
 		{
-			ImGui::Checkbox("Aimbot", &hacks::aimbotToggle);
-			if (hacks::aimbotToggle)
+			ImGui::Checkbox("Aimbot", &config_system.item.bAimbot);
+			if (config_system.item.bAimbot)
 			{
-				ImGui::SliderFloat("FOV", &hacks::fov, 0.1f, 180.0f);
-				ImGui::SliderFloat("Smoothing", &hacks::smoothing, 0.1f, 1.0f);
+				ImGui::Checkbox("Alway on", &hacks::alway_on);
+				ImGui::Checkbox("Autoshot", &hacks::auto_shot);
+				ImGui::Checkbox("pSilent", &config_system.item.pSilent);
+				ImGui::SliderFloat("FOV", &config_system.item.fFov, 0.1f, 180.0f);
+				ImGui::SliderFloat("Smoothing", &config_system.item.fSmooth, 0.1f, 1.0f);
 			}
 		}
 		else if (data.name == "Visuals")
@@ -284,11 +291,72 @@ void gui::Render() noexcept
 		}
 		else if (data.name == "Misc")
 		{
-			ImGui::Checkbox("Bhop", &hacks::bhopToggle);
+			ImGui::Checkbox("Bhop", &config_system.item.bBhop);
 		}
 		else if (data.name == "Config")
 		{
-			
+			ImGui::BeginChild("config", ImVec2(279, 268), true); {
+				constexpr auto& config_items = config_system.get_configs();
+				static int current_config = -1;
+
+				if (static_cast<size_t>(current_config) >= config_items.size())
+					current_config = -1;
+
+				static char buffer[16];
+
+				if (ImGui::ListBox("", &current_config, [](void* data, int idx, const char** out_text) {
+					auto& vector = *static_cast<std::vector<std::string>*>(data);
+					*out_text = vector[idx].c_str();
+					return true;
+				}, &config_items, config_items.size(), 5) && current_config != -1)
+					strcpy(buffer, config_items[current_config].c_str());
+
+				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+				ImGui::PushID(0);
+				ImGui::PushItemWidth(178);
+				if (ImGui::InputText("", buffer, IM_ARRAYSIZE(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+					if (current_config != -1)
+						config_system.rename(current_config, buffer);
+				}
+				ImGui::PopID();
+				ImGui::NextColumn();
+
+				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+				if (ImGui::Button(("create"), ImVec2(85, 20))) {
+					config_system.add(buffer);
+				}
+
+				ImGui::SameLine();
+
+				if (ImGui::Button(("reset"), ImVec2(85, 20))) {
+					config_system.reset();
+
+				}
+
+				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+				if (current_config != -1) {
+					if (ImGui::Button(("load"), ImVec2(85, 20))) {
+						config_system.load(current_config);
+
+						load_config = true;
+					}
+
+					ImGui::SameLine();
+
+					if (ImGui::Button(("save"), ImVec2(85, 20))) {
+						config_system.save(current_config);
+
+						save_config = true;
+
+					}
+
+					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+					if (ImGui::Button(("remove"), ImVec2(85, 20))) {
+						config_system.remove(current_config);
+					}
+				}
+			}
+			ImGui::EndChild();
 		}
 	}
 	ImGui::EndChild();
