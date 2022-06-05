@@ -274,6 +274,8 @@ void gui::Render() noexcept
 			ImGui::Checkbox("Aimbot", &hacks::aimbotToggle);
 			if (hacks::aimbotToggle)
 			{
+				ImGui::Checkbox("Alway on", &hacks::alway_on);
+				ImGui::Checkbox("Autoshot", &hacks::auto_shot);
 				ImGui::SliderFloat("FOV", &hacks::fov, 0.1f, 180.0f);
 				ImGui::SliderFloat("Smoothing", &hacks::smoothing, 0.1f, 1.0f);
 			}

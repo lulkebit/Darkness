@@ -89,6 +89,8 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 
 		// run aimbot
 		hacks::RunAimbot(cmd);
+
+		hacks::Runalwayonaimbot(cmd);
 	}
 
 	if (!hacks::pSilent)

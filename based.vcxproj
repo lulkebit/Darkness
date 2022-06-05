@@ -166,6 +166,7 @@
     <ClCompile Include="src\core\netvars.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hacks\aimbot.cpp" />
+    <ClCompile Include="src\hacks\aimbot_alwayon.cpp" />
     <ClCompile Include="src\hacks\misc.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\util\memory.cpp" />
