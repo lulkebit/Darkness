@@ -12,6 +12,7 @@
 #include "../../ext/imgui/imgui_impl_dx9.h"
 #include "../../ext/imgui/imgui_impl_win32.h"
 #include "../config/config.hpp"
+#include "../hacks/glow.h"
 
 void hooks::Setup() noexcept
 {
@@ -41,6 +42,12 @@ void hooks::Setup() noexcept
 		VirtualFunction(gui::device, 16),
 		&Reset,
 		reinterpret_cast<void**>(&ResetOriginal)
+	);
+
+	MH_CreateHook(
+		memory::Get(interfaces::clientMode, 44),
+		&DoPostScreenSpaceEffects,
+		reinterpret_cast<void**>(&DoPostScreenSpaceEffectsOriginal)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
@@ -85,13 +92,9 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 
 	if (globals::localPlayer && globals::localPlayer->IsAlive())
 	{
-		// example bhop
 		hacks::RunBunnyHop(cmd);
-
-		// run aimbot
 		hacks::RunAimbot(cmd);
-
-		hacks::Runalwayonaimbot(cmd);
+		//hacks::Runalwayonaimbot(cmd);
 	}
 
 	if (!config_system.item.pSilent)
@@ -127,4 +130,14 @@ HRESULT __stdcall hooks::Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* 
 	const auto result = ResetOriginal(device, device, params);
 	ImGui_ImplDX9_CreateDeviceObjects();
 	return result;
+}
+
+void __stdcall hooks::DoPostScreenSpaceEffects(const void* viewSetup) noexcept
+{
+	if (globals::localPlayer && interfaces::engine->IsInGame())
+	{
+		hacks::RunGlow();
+	}
+
+	DoPostScreenSpaceEffectsOriginal(interfaces::clientMode, viewSetup);
 }

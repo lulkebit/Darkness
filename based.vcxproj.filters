@@ -78,10 +78,10 @@
     <ClCompile Include="src\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hacks\aimbot_alwayon.cpp">
+    <ClCompile Include="src\config\config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\config\config.cpp">
+    <ClCompile Include="src\hacks\glow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -237,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\config\config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hacks\glow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

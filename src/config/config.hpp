@@ -17,10 +17,24 @@ public:
 	}
 
 	struct {
+		// LegitBot
 		bool bAimbot{ false };
 		float fFov{ 5.0f };
 		float fSmooth{ 0.5f };
 		bool pSilent{ false };
+
+		// Glow
+		bool bGlow{ false };
+		bool bEnemyGlow{ false };
+		bool bTeamGlow{ false };
+		bool bC4Glow{ false };
+		bool bChickenGlow{ false };
+		float fEnemyGlow[4]{ 1.0f, 0.0f, 0.0f, 1.0f };
+		float fTeamGlow[4]{ 0.0f, 0.0f, 1.0f, 1.0f };
+		float fC4Glow[4]{ 1.0f, 1.0f, 1.0f, 1.0f };
+		float fChickenGlow[4]{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+		// Misc
 		bool bBhop{ false };
 	} item;
 

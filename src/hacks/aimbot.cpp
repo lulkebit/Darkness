@@ -113,20 +113,5 @@ void hacks::RunAimbot(CUserCmd* cmd) noexcept
 
 void hacks::autoshot(CUserCmd* cmd) noexcept
 {
-
-	while (auto_shot) 
-	{
-		if (hacks::aimbotToggle && hacks::alway_on) 
-		{
-		continue;
-		}
-
-
-
-
-
-
-	}
-	
 	
 }

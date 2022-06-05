@@ -287,7 +287,15 @@ void gui::Render() noexcept
 		}
 		else if (data.name == "Visuals")
 		{
-
+			ImGui::Checkbox("Glow", &config_system.item.bGlow);
+			ImGui::Checkbox("Enemy", &config_system.item.bEnemyGlow);
+			ImGui::ColorEdit4("Enemy Color", config_system.item.fEnemyGlow, ImGuiColorEditFlags_NoInputs);
+			ImGui::Checkbox("Team", &config_system.item.bTeamGlow);
+			ImGui::ColorEdit4("Team Color", config_system.item.fTeamGlow, ImGuiColorEditFlags_NoInputs);
+			ImGui::Checkbox("C4", &config_system.item.bC4Glow);
+			ImGui::ColorEdit4("C4 Color", config_system.item.fC4Glow, ImGuiColorEditFlags_NoInputs);
+			ImGui::Checkbox("Chicken", &config_system.item.bChickenGlow);
+			ImGui::ColorEdit4("Chicken Color", config_system.item.fChickenGlow, ImGuiColorEditFlags_NoInputs);
 		}
 		else if (data.name == "Misc")
 		{
