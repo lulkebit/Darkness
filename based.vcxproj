@@ -167,6 +167,7 @@
     <ClCompile Include="src\core\netvars.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hacks\aimbot.cpp" />
+    <ClCompile Include="src\hacks\chams.cpp" />
     <ClCompile Include="src\hacks\glow.cpp" />
     <ClCompile Include="src\hacks\misc.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\core\netvars.h" />
     <ClInclude Include="src\gui.h" />
     <ClInclude Include="src\hacks\aimbot.h" />
+    <ClInclude Include="src\hacks\chams.h" />
     <ClInclude Include="src\hacks\glow.h" />
     <ClInclude Include="src\hacks\misc.h" />
     <ClInclude Include="src\util\hash.h" />

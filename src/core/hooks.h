@@ -1,6 +1,7 @@
 #pragma once
 #include "interfaces.h"
 #include "../gui.h"
+#include <cstdint>
 
 namespace hooks
 {
@@ -42,4 +43,30 @@ namespace hooks
 
 	// hook prototype
 	void __stdcall DoPostScreenSpaceEffects(const void* viewSetup) noexcept;
+
+	// function signature
+	using DrawModelFn = void(__thiscall*)(
+		void*,
+		void*,
+		const CDrawModelInfo&,
+		CMatrix3x4*,
+		float*,
+		float*,
+		const CVector&,
+		const std::int32_t
+		) noexcept;
+
+	// original function pointer
+	inline DrawModelFn DrawModelOriginal = nullptr;
+
+	// hooked function definition
+	void __stdcall DrawModel(
+		void* results,
+		const CDrawModelInfo& info,
+		CMatrix3x4* bones,
+		float* flexWeights,
+		float* flexDelayedWeights,
+		const CVector& modelOrigin,
+		const std::int32_t flags
+	) noexcept;
 }

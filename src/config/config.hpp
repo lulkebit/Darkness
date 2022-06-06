@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <string>
 
 class c_config final {
 public:
@@ -33,6 +34,27 @@ public:
 		float fTeamGlow[4]{ 0.0f, 0.0f, 1.0f, 1.0f };
 		float fC4Glow[4]{ 1.0f, 1.0f, 1.0f, 1.0f };
 		float fChickenGlow[4]{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+		// Chams
+		bool bChams{ false };
+		float fHidden[3]{ 0.0f, 1.0f, 1.0f };
+		float fVisible[3]{ 1.0f, 1.0f, 0.0f };
+		int iMaterialSelected{ 0 };
+		const char* sMaterial[13]{ 
+			"debug/debugambientcube", 
+			"models/inventory_items/trophy_majors/gold", 
+			"models/player/ct_fbi/ct_fbi_glass" ,
+			"models/gibs/glass/glass",
+			"models/inventory_items/trophy_majors/crystal_clear",
+			"models/inventory_items/wildfire_gold/wildfire_gold_detail",
+			"models/inventory_items/trophy_majors/crystal_blue",
+			"models/inventory_items/trophy_majors/velvet",
+			"models/inventory_items/cologne_prediction/cologne_prediction_glass",
+			"models/inventory_items/dogtags/dogtags_outline",
+			"models/inventory_items/dogtags/dogtags_lightray",
+			"models/inventory_items/contributor_map_tokens/contributor_charset_color",
+			"models/inventory_items/music_kit/darude_01/mp3_detail"
+		};
 
 		// Misc
 		bool bBhop{ false };

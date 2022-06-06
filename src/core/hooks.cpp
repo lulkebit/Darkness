@@ -5,6 +5,7 @@
 
 #include <intrin.h>
 #include <stdexcept>
+#include <cstdlib>
 #include "../hacks/misc.h"
 #include "../hacks/aimbot.h"
 
@@ -13,6 +14,7 @@
 #include "../../ext/imgui/imgui_impl_win32.h"
 #include "../config/config.hpp"
 #include "../hacks/glow.h"
+#include "../hacks/chams.h"
 
 void hooks::Setup() noexcept
 {
@@ -48,6 +50,12 @@ void hooks::Setup() noexcept
 		memory::Get(interfaces::clientMode, 44),
 		&DoPostScreenSpaceEffects,
 		reinterpret_cast<void**>(&DoPostScreenSpaceEffectsOriginal)
+	);
+
+	MH_CreateHook(
+		memory::Get(interfaces::studioRender, 29),
+		&DrawModel,
+		reinterpret_cast<void**>(&DrawModelOriginal)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
@@ -94,7 +102,6 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	{
 		hacks::RunBunnyHop(cmd);
 		hacks::RunAimbot(cmd);
-		//hacks::Runalwayonaimbot(cmd);
 	}
 
 	if (!config_system.item.pSilent)
@@ -140,4 +147,20 @@ void __stdcall hooks::DoPostScreenSpaceEffects(const void* viewSetup) noexcept
 	}
 
 	DoPostScreenSpaceEffectsOriginal(interfaces::clientMode, viewSetup);
+}
+
+void __stdcall hooks::DrawModel(
+	void* results,
+	const CDrawModelInfo& info,
+	CMatrix3x4* bones,
+	float* flexWeights,
+	float* flexDelayedWeights,
+	const CVector& modelOrigin,
+	const std::int32_t flags
+) noexcept
+{
+	if (globals::localPlayer && info.renderable)
+	{
+		hacks::RunChams(results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+	}
 }

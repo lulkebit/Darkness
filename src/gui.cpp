@@ -278,8 +278,6 @@ void gui::Render() noexcept
 			ImGui::Checkbox("Aimbot", &config_system.item.bAimbot);
 			if (config_system.item.bAimbot)
 			{
-				ImGui::Checkbox("Alway on", &hacks::alway_on);
-				ImGui::Checkbox("Autoshot", &hacks::auto_shot);
 				ImGui::Checkbox("pSilent", &config_system.item.pSilent);
 				ImGui::SliderFloat("FOV", &config_system.item.fFov, 0.1f, 180.0f);
 				ImGui::SliderFloat("Smoothing", &config_system.item.fSmooth, 0.1f, 1.0f);
@@ -296,6 +294,21 @@ void gui::Render() noexcept
 			ImGui::ColorEdit4("C4 Color", config_system.item.fC4Glow, ImGuiColorEditFlags_NoInputs);
 			ImGui::Checkbox("Chicken", &config_system.item.bChickenGlow);
 			ImGui::ColorEdit4("Chicken Color", config_system.item.fChickenGlow, ImGuiColorEditFlags_NoInputs);
+			ImGui::Checkbox("Chams", &config_system.item.bChams);
+			ImGui::ColorEdit4("Hidden Color", config_system.item.fHidden, ImGuiColorEditFlags_NoInputs);
+			ImGui::ColorEdit4("Visible Color", config_system.item.fVisible, ImGuiColorEditFlags_NoInputs);
+			//if (ImGui::BeginCombo("Material", config_system.item.sMaterial[config_system.item.iMaterialSelected]))
+			//{
+			//	for (int i = -1; i < IM_ARRAYSIZE(config_system.item.sMaterial); i++)
+			//	{
+			//		bool is_selected = (config_system.item.iMaterialSelected == i); // You can store your selection however you want, outside or inside your objects
+			//		if (ImGui::Selectable(config_system.item.sMaterial[i], is_selected))
+			//			config_system.item.iMaterialSelected = i;
+			//			if (is_selected)
+			//				ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+			//	}
+			//	ImGui::EndCombo();
+			//}
 		}
 		else if (data.name == "Misc")
 		{
@@ -330,20 +343,20 @@ void gui::Render() noexcept
 				ImGui::NextColumn();
 
 				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-				if (ImGui::Button(("create"), ImVec2(85, 20))) {
+				if (ImGui::Button(("Create"), ImVec2(85, 20))) {
 					config_system.add(buffer);
 				}
 
 				ImGui::SameLine();
 
-				if (ImGui::Button(("reset"), ImVec2(85, 20))) {
+				if (ImGui::Button(("Reset"), ImVec2(85, 20))) {
 					config_system.reset();
 
 				}
 
 				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 				if (current_config != -1) {
-					if (ImGui::Button(("load"), ImVec2(85, 20))) {
+					if (ImGui::Button(("Load"), ImVec2(85, 20))) {
 						config_system.load(current_config);
 
 						load_config = true;
@@ -351,7 +364,7 @@ void gui::Render() noexcept
 
 					ImGui::SameLine();
 
-					if (ImGui::Button(("save"), ImVec2(85, 20))) {
+					if (ImGui::Button(("Save"), ImVec2(85, 20))) {
 						config_system.save(current_config);
 
 						save_config = true;
@@ -359,7 +372,7 @@ void gui::Render() noexcept
 					}
 
 					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-					if (ImGui::Button(("remove"), ImVec2(85, 20))) {
+					if (ImGui::Button(("Remove"), ImVec2(85, 20))) {
 						config_system.remove(current_config);
 					}
 				}

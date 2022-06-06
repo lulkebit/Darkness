@@ -110,8 +110,3 @@ void hacks::RunAimbot(CUserCmd* cmd) noexcept
 		cmd->viewAngles = cmd->viewAngles + bestAngle.Scale(config_system.item.fSmooth);
 	}
 }
-
-void hacks::autoshot(CUserCmd* cmd) noexcept
-{
-	
-}
