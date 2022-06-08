@@ -20,9 +20,12 @@ public:
 	struct {
 		// LegitBot
 		bool bAimbot{ false };
+		int aim_key{ 0 };
 		float fFov{ 5.0f };
 		float fSmooth{ 0.5f };
 		bool pSilent{ false };
+		bool bTriggerbot{ false };
+		int trigger_key{ 0 };
 
 		// Glow
 		bool bGlow{ false };
@@ -39,7 +42,7 @@ public:
 		bool bChams{ false };
 		float fHidden[3]{ 0.0f, 1.0f, 1.0f };
 		float fVisible[3]{ 1.0f, 1.0f, 0.0f };
-		int iMaterialSelected{ 0 };
+		/*int iMaterialSelected{ 0 };
 		const char* sMaterial[13]{ 
 			"debug/debugambientcube", 
 			"models/inventory_items/trophy_majors/gold", 
@@ -54,10 +57,11 @@ public:
 			"models/inventory_items/dogtags/dogtags_lightray",
 			"models/inventory_items/contributor_map_tokens/contributor_charset_color",
 			"models/inventory_items/music_kit/darude_01/mp3_detail"
-		};
+		};*/
 
 		// Misc
 		bool bBhop{ false };
+		bool bThirdperson{ false };
 	} item;
 
 private:

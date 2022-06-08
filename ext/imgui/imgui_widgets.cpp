@@ -3512,6 +3512,11 @@ bool ImGui::InputScalarN(const char* label, ImGuiDataType data_type, void* p_dat
     return value_changed;
 }
 
+bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg)
+{
+    return false;
+}
+
 bool ImGui::InputFloat(const char* label, float* v, float step, float step_fast, const char* format, ImGuiInputTextFlags flags)
 {
     flags |= ImGuiInputTextFlags_CharsScientific;

@@ -6,8 +6,6 @@
 #include <intrin.h>
 #include <stdexcept>
 #include <cstdlib>
-#include "../hacks/misc.h"
-#include "../hacks/aimbot.h"
 
 #include "../../ext/imgui/imgui.h"
 #include "../../ext/imgui/imgui_impl_dx9.h"
@@ -15,6 +13,9 @@
 #include "../config/config.hpp"
 #include "../hacks/glow.h"
 #include "../hacks/chams.h"
+#include "../hacks/triggerbot.h"
+#include "../hacks/misc.h"
+#include "../hacks/aimbot.h"
 
 void hooks::Setup() noexcept
 {
@@ -102,6 +103,7 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	{
 		hacks::RunBunnyHop(cmd);
 		hacks::RunAimbot(cmd);
+		hacks::RunTriggerbot(cmd);
 	}
 
 	if (!config_system.item.pSilent)

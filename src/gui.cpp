@@ -282,6 +282,8 @@ void gui::Render() noexcept
 				ImGui::SliderFloat("FOV", &config_system.item.fFov, 0.1f, 180.0f);
 				ImGui::SliderFloat("Smoothing", &config_system.item.fSmooth, 0.1f, 1.0f);
 			}
+			ImGui::Checkbox("Triggerbot", &config_system.item.bTriggerbot);
+			ImGui::Hotkey("key", &config_system.item.trigger_key, ImVec2(100, 20));
 		}
 		else if (data.name == "Visuals")
 		{

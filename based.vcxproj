@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -170,6 +170,8 @@
     <ClCompile Include="src\hacks\chams.cpp" />
     <ClCompile Include="src\hacks\glow.cpp" />
     <ClCompile Include="src\hacks\misc.cpp" />
+    <ClCompile Include="src\hacks\thirdperson.cpp" />
+    <ClCompile Include="src\hacks\triggerbot.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\util\memory.cpp" />
   </ItemGroup>
@@ -201,6 +203,8 @@
     <ClInclude Include="src\hacks\chams.h" />
     <ClInclude Include="src\hacks\glow.h" />
     <ClInclude Include="src\hacks\misc.h" />
+    <ClInclude Include="src\hacks\thirdperson.h" />
+    <ClInclude Include="src\hacks\triggerbot.h" />
     <ClInclude Include="src\util\hash.h" />
     <ClInclude Include="src\util\memory.h" />
     <ClInclude Include="src\valve\cclientclass.h" />
@@ -227,6 +231,9 @@
     <ClInclude Include="src\valve\istudiorender.h" />
     <ClInclude Include="src\valve\ivmodelinfo.h" />
     <ClInclude Include="src\valve\ivpanel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
